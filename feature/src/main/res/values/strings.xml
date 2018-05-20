@@ -1,0 +1,7 @@
+<resources>
+    <string name="textview" />
+    <string name="button" />
+    <string name="button2" />
+    <string name="button3" />
+    <string name="title_activity_play">PlayActivity</string>
+</resources>
