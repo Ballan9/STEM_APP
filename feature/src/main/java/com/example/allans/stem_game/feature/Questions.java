@@ -1,22 +1,19 @@
 package com.example.allans.stem_game.feature;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.content.SharedPreferences;
 
-public class PlayActivity extends AppCompatActivity {
+import java.util.Objects;
+import java.util.Random;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_play);
-    }
+
+public class Questions {
 
     //SharedPreferences sharedPreferences = getSharedPreferences("difficultyLevel",MODE_PRIVATE);
     //difficultylevel= sharedPreferences.getString("difficulty","");
 
     public String beginnerQuestions[] = {
             "What is the chemical compound of water?",
-            "What is the chemical compound of CarbonDioxide?",
+            "What is the chemical compound of CarbondDioxide?",
             "What is the chemical compound of water?",
             "What is the chemical compound of water?",
             "What is the chemical compound of water?",
@@ -58,7 +55,7 @@ public class PlayActivity extends AppCompatActivity {
 
     public String advancedQuestions[] = {
             "What is the chemical compound of water?",
-            "What is the chemical compound of CarbonDioxide?",
+            "What is the chemical compound of CarbondDioxide?",
             "What is the chemical compound of water?",
             "What is the chemical compound of water?",
             "What is the chemical compound of water?",
@@ -156,5 +153,7 @@ public class PlayActivity extends AppCompatActivity {
 //        return answer;
 //    }
 
+    }
 
-}
+
+

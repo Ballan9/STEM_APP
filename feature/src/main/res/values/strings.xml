@@ -4,4 +4,16 @@
     <string name="button2" />
     <string name="button3" />
     <string name="title_activity_play">PlayActivity</string>
+    <string name="button4" />
+    <string name="change_difficulty">change difficulty</string>
+    <string name="title">title</string>
+    <string name="play_now">Play Now</string>
+    <string name="highScore">highScore</string>
+    <string name="settings">settings</string>
+    <string name="Welcome_To_My_Chemical_Romance">Welcome To My Chemical Romance</string>
+    <string name="answer1">answer1[]</string>
+    <string name="answer2">answer2[]</string>
+    <string name="answer3">answer3[]</string>
+    <string name="answer4">answer4[]</string>
+    <string name="score">score</string>
 </resources>
