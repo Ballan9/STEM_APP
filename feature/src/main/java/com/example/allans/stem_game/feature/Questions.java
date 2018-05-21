@@ -11,7 +11,7 @@ public class Questions {
     //SharedPreferences sharedPreferences = getSharedPreferences("difficultyLevel",MODE_PRIVATE);
     //difficultylevel= sharedPreferences.getString("difficulty","");
 
-    public String beginnerQuestions[] = {
+    public String cQuestions[] = {
             "What is the chemical compound of water?",
             "What is the chemical compound of CarbondDioxide?",
             "What is the chemical compound of water?",
@@ -25,7 +25,7 @@ public class Questions {
 
     };
 
-    private String beginnerChoices[][] ={
+    private String cChoices[][] ={
             {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
             {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
             {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
@@ -39,21 +39,21 @@ public class Questions {
 
     };
 
-    private String beginnerCorrectAnswers[] = {
-            "Hydrogen" + "Hydrogen" +"Carbon",
-            "Hydrogen" + "Hydrogen" +"Carbon",
-            "Hydrogen" + "Hydrogen" +"Carbon",
-            "Hydrogen" + "Hydrogen" +"Carbon",
-            "Hydrogen" + "Hydrogen" +"Carbon",
-            "Hydrogen" + "Hydrogen" +"Carbon",
-            "Hydrogen" + "Hydrogen" +"Carbon",
-            "Hydrogen" + "Hydrogen" +"Carbon",
-            "Hydrogen" + "Hydrogen" +"Carbon",
-            "Hydrogen" + "Hydrogen" +"Carbon",
+    private String cCorrectAnswers[] = {
+            "Hydrogen" ,
+            "Hydrogen" ,
+            "Hydrogen" ,
+            "Hydrogen" ,
+            "Hydrogen" ,
+            "Hydrogen" ,
+            "Hydrogen" ,
+            "Hydrogen" ,
+            "Hydrogen" ,
+            "Hydrogen" ,
 
     };
 
-    public String advancedQuestions[] = {
+    public String aQuestions[] = {
             "What is the chemical compound of water?",
             "What is the chemical compound of CarbondDioxide?",
             "What is the chemical compound of water?",
@@ -67,7 +67,7 @@ public class Questions {
 
     };
 
-    private String advancedChoices[][] ={
+    private String aChoices[][] ={
             {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
             {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
             {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
@@ -81,7 +81,7 @@ public class Questions {
 
     };
 
-    private String advancedCorrectAnswers[] = {
+    private String aCorrectAnswers[] = {
             "Hydrogen" + "Hydrogen" +"Carbon",
             "Hydrogen" + "Hydrogen" +"Carbon",
             "Hydrogen" + "Hydrogen" +"Carbon",
@@ -94,6 +94,34 @@ public class Questions {
             "Hydrogen" + "Hydrogen" +"Carbon",
 
     };
+
+    public String getQuestion(int a){
+        String question = cQuestions[a];
+        return question;
+
+    }
+
+    public String getChoice1(int a){
+        String choice = cChoices[a] [0];
+        return choice;
+    }
+    public String getChoice2(int a){
+        String choice = cChoices[a] [1];
+        return choice;
+    }
+    public String getChoice3(int a){
+        String choice = cChoices[a] [2];
+        return choice;
+    }
+    public String getChoice4(int a){
+        String choice = cChoices[a] [3];
+        return choice;
+    }
+
+    public String getCorrectAnswer(int a){
+        String answer = cCorrectAnswers[a];
+        return answer;
+    }
 
 
 
