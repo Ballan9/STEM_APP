@@ -1,16 +1,22 @@
 package com.example.allans.stem_game.feature;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.Objects;
 import java.util.Random;
 
 public class PlayActivity extends AppCompatActivity {
@@ -21,6 +27,9 @@ public class PlayActivity extends AppCompatActivity {
     Button answer2;
     Button answer3;
     Button answer4;
+    ImageView qImage;
+
+    private TextView hintText;
 
     private Questions cQuestions = new Questions();
 
@@ -29,6 +38,12 @@ public class PlayActivity extends AppCompatActivity {
     private int cQuestionsLength = cQuestions.cQuestions.length;
 
     Random r;
+
+    private SensorManager shakeSensorManager;
+    private float sensorAccel;
+    private float sensorAccelCurrent;
+    private float sensorAccelLast;
+
 
 
     @Override
@@ -45,12 +60,22 @@ public class PlayActivity extends AppCompatActivity {
         answer2 = findViewById(R.id.answer2);
         answer3 = findViewById(R.id.answer3);
         answer4 = findViewById(R.id.answer4);
+        hintText = findViewById(R.id.hintText);
+        qImage =  findViewById(R.id.qImage);
+
 
 
         SharedPreferences sharedPreferences = getSharedPreferences("difficultyLevel",MODE_PRIVATE);
         difficultylevel= sharedPreferences.getString("difficulty","");
 
-        score.setText("Score; " + cScore);
+        score.setText("Score: " + cScore);
+
+        shakeSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        assert shakeSensorManager != null;
+        shakeSensorManager.registerListener(mSensorListener, shakeSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+        sensorAccel = 0.00f;
+        sensorAccelCurrent = SensorManager.GRAVITY_EARTH;
+        sensorAccelLast = SensorManager.GRAVITY_EARTH;
 
 
         updateQuestion(r.nextInt(cQuestionsLength));
@@ -60,11 +85,17 @@ public class PlayActivity extends AppCompatActivity {
         public void onClick(View v) {
             if (answer1.getText() == cAnswer) {
                 cScore++;
-                score.setText("Score; " + cScore);
+                score.setText("Score: " + cScore);
+                hintText.setVisibility(View.INVISIBLE);
                 updateQuestion(r.nextInt(cQuestionsLength));
+                MediaPlayer mp = MediaPlayer.create(getApplicationContext(),R.raw.correct);
+                mp.start();
             }
             else {
-                GameOver();
+                System.out.println("You suck");
+                MediaPlayer mp = MediaPlayer.create(getApplicationContext(),R.raw.inccorect);
+                mp.start();
+                gameOver();
             }
 
         }
@@ -75,11 +106,17 @@ public class PlayActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (answer2 .getText() == cAnswer) {
                     cScore++;
-                    score.setText("Score; " + cScore);
+                    score.setText("Score: " + cScore);
+                    hintText.setVisibility(View.INVISIBLE);
                     updateQuestion(r.nextInt(cQuestionsLength));
+                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(),R.raw.correct);
+                    mp.start();
                 }
                 else {
-                    GameOver();
+                    System.out.println("You suck");
+                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(),R.raw.inccorect);
+                    mp.start();
+                    gameOver();
                 }
 
             }
@@ -90,11 +127,17 @@ public class PlayActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (answer3.getText() == cAnswer) {
                     cScore++;
-                    score.setText("Score; " + cScore);
+                    score.setText("Score: " + cScore);
+                    hintText.setVisibility(View.INVISIBLE);
                     updateQuestion(r.nextInt(cQuestionsLength));
+                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(),R.raw.correct);
+                    mp.start();
                 }
                 else {
-                    GameOver();
+                    System.out.println("You suck");
+                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(),R.raw.inccorect);
+                    mp.start();
+                    gameOver();
                 }
 
             }
@@ -104,159 +147,23 @@ public class PlayActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (answer4.getText() == cAnswer) {
                     cScore++;
-                    score.setText("Score; " + cScore);
+                    score.setText("Score: " + cScore);
+                    hintText.setVisibility(View.INVISIBLE);
                     updateQuestion(r.nextInt(cQuestionsLength));
+                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(),R.raw.correct);
+                    mp.start();
                 }
                 else {
-                    GameOver();
+                    System.out.println("You suck");
+                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(),R.raw.inccorect);
+                    mp.start();
+                    gameOver();
                 }
 
             }
         });
-//    String [] beginnerQuestions = {
-//            "What is the chemical compound of water?",
-//            "What is the chemical compound of CarbonDioxide?",
-//            "What is the chemical compound of water?",
-//            "What is the chemical compound of water?",
-//            "What is the chemical compound of water?",
-//            "What is the chemical compound of water?",
-//            "What is the chemical compound of water?",
-//            "What is the chemical compound of water?",
-//            "What is the chemical compound of water?",
-//            "What is the chemical compound of water?",
-//
-//    };
-//
-//    String [][] beginnerChoices={
-//            {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
-//            {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
-//            {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
-//            {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
-//            {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
-//            {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
-//            {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
-//            {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
-//            {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
-//            {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
-//
-//    };
-//
-//    String [] beginnerCorrectAnswers = {
-//            "Hydrogen" + "Hydrogen" +"Carbon",
-//            "Hydrogen" + "Hydrogen" +"Carbon",
-//            "Hydrogen" + "Hydrogen" +"Carbon",
-//            "Hydrogen" + "Hydrogen" +"Carbon",
-//            "Hydrogen" + "Hydrogen" +"Carbon",
-//            "Hydrogen" + "Hydrogen" +"Carbon",
-//            "Hydrogen" + "Hydrogen" +"Carbon",
-//            "Hydrogen" + "Hydrogen" +"Carbon",
-//            "Hydrogen" + "Hydrogen" +"Carbon",
-//            "Hydrogen" + "Hydrogen" +"Carbon",
-//
-//    };
-//
-//    String [] advancedQuestions = {
-//            "What is the chemical compound of water?",
-//            "What is the chemical compound of CarbonDioxide?",
-//            "What is the chemical compound of water?",
-//            "What is the chemical compound of water?",
-//            "What is the chemical compound of water?",
-//            "What is the chemical compound of water?",
-//            "What is the chemical compound of water?",
-//            "What is the chemical compound of water?",
-//            "What is the chemical compound of water?",
-//            "What is the chemical compound of water?",
-//
-//    };
-//
-//    String [][]advancedChoices ={
-//            {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
-//            {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
-//            {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
-//            {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
-//            {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
-//            {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
-//            {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
-//            {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
-//            {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
-//            {"Hydrogen" ,"Carbon", "Oxygen", "Gold" },
-//
-//    };
-//
-//    String [] advancedCorrectAnswers = {
-//            "Hydrogen" + "Hydrogen" +"Carbon",
-//            "Hydrogen" + "Hydrogen" +"Carbon",
-//            "Hydrogen" + "Hydrogen" +"Carbon",
-//            "Hydrogen" + "Hydrogen" +"Carbon",
-//            "Hydrogen" + "Hydrogen" +"Carbon",
-//            "Hydrogen" + "Hydrogen" +"Carbon",
-//            "Hydrogen" + "Hydrogen" +"Carbon",
-//            "Hydrogen" + "Hydrogen" +"Carbon",
-//            "Hydrogen" + "Hydrogen" +"Carbon",
-//            "Hydrogen" + "Hydrogen" +"Carbon",
-//
-//    };
 
 
-
-//    if (Objects.equals(difficultylevel, "advanced")){
-//        question.setText(advancedQuestions[0]);
-//
-//
-//    }
-//        public String cGetQuestion(int a){
-//        String question = beginnerQuestions[a];
-//        return question;
-
-
-//    public String getChoice1(int a){
-//         String choice = beginnerChoices[a][0];
-//         return choice;
-//    }
-//    public String getChoice2 (int a){
-//        String choice = beginnerChoices[a][1];
-//        return choice;
-//    }
-//    public String getChoice3 (int a){
-//        String choice = beginnerChoices[a][2];
-//        return choice;
-//    }
-//    public String getChoice4 (int a){
-//        String choice = beginnerChoices[a][3];
-//        return choice;
-//    }
-//
-//    public String getCorrectAnswer(int a){
-//        String answer = beginnerCorrectAnswers[a];
-//        return answer;
-//    }
-//
-//        else{
-//        public String cGetQuestion(int a){
-//        String question = advancedQuestions[a];
-//        return question;
-//    }
-//
-//    public String getChoice1(int a){
-//         String choice = advancedChoices[a][0];
-//         return choice;
-//    }
-//    public String getChoice2 (int a){
-//        String choice = advancedChoices[a][1];
-//        return choice;
-//    }
-//    public String getChoice3 (int a){
-//        String choice = advancedChoices[a][2];
-//        return choice;
-//    }
-//    public String getChoice4 (int a){
-//        String choice = advancedChoices[a][3];
-//        return choice;
-//    }
-//
-//    public String getCorrectAnswer(int a){
-//        String answer = advancedCorrectAnswers[a];
-//        return answer;
     }
 
     private void updateQuestion(int num) {
@@ -265,13 +172,17 @@ public class PlayActivity extends AppCompatActivity {
         answer2.setText(cQuestions.getChoice2(num));
         answer3.setText(cQuestions.getChoice3(num));
         answer4.setText(cQuestions.getChoice4(num));
+        hintText.setText(cQuestions.getHint(num));
+        qImage.setImageDrawable(getResources().getDrawable(cQuestions.getQImages(num)));
+
 
         cAnswer = cQuestions.getCorrectAnswer(num);
 
     }
 
-    private void GameOver(){
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(PlayActivity.this);
+    private void gameOver(){
+        System.out.println("Gameover function");
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder
                 .setMessage("Gamer Over !!! Your Score is" + cScore + "Questions Right")
                 .setCancelable(false)
@@ -280,6 +191,7 @@ public class PlayActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 startActivity(new Intent(getApplicationContext(), PlayActivity.class));
+                                finish();
 
                             }
                         })
@@ -291,7 +203,44 @@ public class PlayActivity extends AppCompatActivity {
 
                             }
                         });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
 
+    }
+
+    private final SensorEventListener mSensorListener = new SensorEventListener() {
+        /** Detects Shakes from the Accelerometer **/
+
+        public void onSensorChanged(SensorEvent se) {
+            float x = se.values[0];
+            float y = se.values[1];
+            float z = se.values[2];
+            sensorAccelLast = sensorAccelCurrent;
+            sensorAccelCurrent = (float) Math.sqrt((double) (x * x + y * y + z * z));
+            float delta = sensorAccelCurrent - sensorAccelLast;
+            sensorAccel = sensorAccel * 0.9f + delta;
+
+            //number for sensorAccel is the shaken amount threshold (higher equals more shake)
+            if (sensorAccel > 1 ) {
+                hintText.getText();
+                hintText.setVisibility(View.VISIBLE);
+            }
+        }
+
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        }
+    };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        shakeSensorManager.registerListener(mSensorListener, shakeSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onPause() {
+        shakeSensorManager.unregisterListener(mSensorListener);
+        super.onPause();
     }
 
 
