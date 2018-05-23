@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -199,6 +202,7 @@ public class PlayActivity extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                shareOnTwitter();
                                 finish();
 
                             }
@@ -241,6 +245,31 @@ public class PlayActivity extends AppCompatActivity {
     protected void onPause() {
         shakeSensorManager.unregisterListener(mSensorListener);
         super.onPause();
+    }
+
+    void shareOnTwitter()
+    {
+        PackageManager pm=getPackageManager();
+        try {
+            Intent waIntent = new Intent(Intent.ACTION_SEND);
+            waIntent.setType("text/plain");
+            String text = "I scored " +score + "On My chemical Romance, you should give it a go ";
+
+            @SuppressWarnings("unused")
+            PackageInfo info=pm.getPackageInfo("com.twitter.android", PackageManager.GET_META_DATA);
+            //Check if package exists or not. If not then code
+            //in catch block will be called
+            waIntent.setPackage("com.twitter.android");
+
+            waIntent.putExtra(Intent.EXTRA_TEXT, text);
+            startActivity(Intent.createChooser(waIntent, "Share with"));
+
+        } catch (PackageManager.NameNotFoundException e) {
+            Toast.makeText(this, "Twitter not Installed", Toast.LENGTH_SHORT)
+                    .show();
+            return ;
+        }
+        return ;
     }
 
 
