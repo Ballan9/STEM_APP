@@ -1,8 +1,11 @@
 package com.example.allans.stem_game.feature;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -16,12 +19,14 @@ public class Settings extends AppCompatActivity {
     private String switchValue;
     private TextView beginner;
     private SharedPreferences level;
+    Button back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         changeDifficulty = (TextView) findViewById(R.id.changeDifficulty);
         difficultySwitch = (Switch) findViewById(R.id.difficultySwitch);
+        back = findViewById(R.id.back);
         beginner = (TextView) findViewById(R.id.beginner);
         level=getSharedPreferences("difficultyLevel",MODE_PRIVATE);
         switchValue = level.getString("difficulty","");
@@ -48,6 +53,13 @@ public class Settings extends AppCompatActivity {
                 }
             }
         });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Settings.this, MainActivity.class));
+            }
+        });
+
 
     }
 

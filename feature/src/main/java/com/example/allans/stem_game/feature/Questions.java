@@ -64,16 +64,16 @@ public class Questions {
     };
 
     public String cHint[] = {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
+            "Hydrogen" ,
+            "Carbon" ,
+            "Oxygen" ,
+            "Gold" ,
+            "Lithium" ,
+            "Magnesium" ,
+            "Calcium" ,
+            "Potassium" ,
+            "Krypton" ,
+            "Helium" ,
 
 
     };

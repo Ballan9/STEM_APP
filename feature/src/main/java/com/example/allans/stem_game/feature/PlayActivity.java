@@ -184,7 +184,7 @@ public class PlayActivity extends AppCompatActivity {
         System.out.println("Gameover function");
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder
-                .setMessage("Gamer Over !!! Your Score is" + cScore + "Questions Right")
+                .setMessage("Gamer Over !!! Your Score is " + cScore)
                 .setCancelable(false)
                 .setPositiveButton("New Game",
                         new DialogInterface.OnClickListener() {

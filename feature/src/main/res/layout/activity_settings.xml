@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="@string/change_difficulty"
-        android:textColor="#FF0000"
+        android:textColor="#000000"
         android:textSize="28dp"
         app:layout_constraintEnd_toStartOf="@+id/difficultySwitch"
         app:layout_constraintTop_toTopOf="parent" />
@@ -33,8 +33,22 @@
         android:layout_width="126dp"
         android:layout_height="43dp"
         android:layout_marginTop="12dp"
-        android:textColor="#FF0000"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/difficultySwitch" />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="176dp"
+        android:text="Back"
+        android:textColor="@android:color/holo_blue_bright"
+        android:background="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
