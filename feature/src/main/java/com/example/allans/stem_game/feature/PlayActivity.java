@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -185,6 +186,10 @@ public class PlayActivity extends AppCompatActivity {
 
     private void gameOver(){
         System.out.println("Gameover function");
+        ScoreDatabase scoreDatabase = new ScoreDatabase(this);
+        SQLiteDatabase db = scoreDatabase.getReadableDatabase();
+        String sql = "INSERT INTO people (name,score) VALUES (\"Jack Smith\", " + cScore + ");";
+        db.execSQL(sql);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder
                 .setMessage("Gamer Over !!! Your Score is " + cScore)
@@ -225,7 +230,7 @@ public class PlayActivity extends AppCompatActivity {
             sensorAccel = sensorAccel * 0.9f + delta;
 
             //number for sensorAccel is the shaken amount threshold (higher equals more shake)
-            if (sensorAccel > 1 ) {
+            if (sensorAccel >= 10 ) {
                 hintText.getText();
                 hintText.setVisibility(View.VISIBLE);
             }
@@ -253,7 +258,7 @@ public class PlayActivity extends AppCompatActivity {
         try {
             Intent waIntent = new Intent(Intent.ACTION_SEND);
             waIntent.setType("text/plain");
-            String text = "I scored " +score + "On My chemical Romance, you should give it a go ";
+            String text = "I scored " + ""+cScore + "On My chemical Romance, you should give it a go ";
 
             @SuppressWarnings("unused")
             PackageInfo info=pm.getPackageInfo("com.twitter.android", PackageManager.GET_META_DATA);
